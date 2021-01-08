@@ -1,7 +1,6 @@
 window.onload=function(){
 
 //Populate drop-down list
-
 list=document.getElementsByName('set')[0];
 for (i=0; i<data.length; i++){
   separator=document.createElement('option')
@@ -70,8 +69,9 @@ function fetch(clusterid, code){
   return "https://www.fowdb.altervista.org/images/thumbs/"+(8-clusterid)+"/"+code[0].toLowerCase()+"/"+code[1]+".jpg"
 }
 
-//Button listener
+//Generate button listener
 document.getElementById('generate').onclick = function() {
+  //Get info
   selectedset=document.getElementsByName('set')[0].value
   //Limit packs to 10 to prevent excessive bandwidth use
   packs=Number(document.getElementsByName('packs')[0].value)
@@ -99,10 +99,17 @@ document.getElementById('generate').onclick = function() {
     }
   }
   document.getElementById('booster').innerHTML=html
-
+  //Update message
+  document.getElementById('msg').textContent="Generated "+packs+" pack"
+  if (packs>1){document.getElementById('msg').textContent+="s"}
 }
 
-
+//Export button listener. Copies the list of all cards to the clipboard
+document.getElementById('export').onclick = function() {
+  txtcards=cards.join("\n")
+  navigator.clipboard.writeText(txtcards)
+  document.getElementById('msg').textContent="Copied to clipboard"
+}
 
 }
 
