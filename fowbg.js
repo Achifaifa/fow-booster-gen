@@ -100,8 +100,13 @@ document.getElementById('generate').onclick = function() {
   }
   document.getElementById('booster').innerHTML=html
   //Update message
-  document.getElementById('msg').textContent="Generated "+packs+" pack"
-  if (packs>1){document.getElementById('msg').textContent+="s"}
+  if (cards.length==0){
+    document.getElementById('msg').textContent="Set not available"
+  }
+  else{
+    document.getElementById('msg').textContent="Generated "+packs+" pack"
+    if (packs>1){document.getElementById('msg').textContent+="s"}
+  }
 }
 
 //Export button listener. Copies the list of all cards to the clipboard
