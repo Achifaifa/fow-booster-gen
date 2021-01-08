@@ -469,13 +469,7 @@ data=[
             "AO3-086",
             "AO3-090",
             "AO3-091",
-            "AO3-092",
-            "AO3 Buy a Box-1",
-            "AO3 Buy a Box-1J",
-            "AO3 Buy a Box-2",
-            "AO3 Buy a Box-2*",
-            "AO3 Buy a Box-3",
-            "AO3 Buy a Box-3J"
+            "AO3-092"
           ],
           "SR": [
             "AO3-014",

@@ -26,13 +26,13 @@ function generate(tgtdata){
   tgt=tgtdata.split("-")
   tgtcluster=data[tgt[0]].name
   tgtset=data[tgt[0]].sets[tgt[1]]
-  console.log("Generating booster for "+tgtset.code+" ("+tgtdata+")")
+  console.log("Generating booster for "+tgtset.code)
 
   randcards=[]
   //New distribution
   if(["EDL", "AO1", "AO2", "AO3", "PofA", "GITS2045"].indexOf(tgtset.code)>=0){
     //6 commons
-    for(i=0; i<6; i++){
+    for(j=0; j<6; j++){
       randcards.push(choice(tgtset.cards["N"]))
     }
     //1 rare/sr/mr (to-do: No ruler)
@@ -53,13 +53,26 @@ function fetch(clusterid, code){
 }
 
 //Button listener
-
 document.getElementById('generate').onclick = function() {
   selectedset=document.getElementsByName('set')[0].value;
-  cards=generate(selectedset)
+  packs=Number(document.getElementsByName('packs')[0].value)
+  cards=[]
+  for (i=0; i<packs; i++){
+    console.log((i+1)+"/"+packs)
+    cards=cards.concat(generate(selectedset))
+  }
+  //Sort cards if requested
+  sortbyid=document.getElementsByName("sortcheck")[0].checked
+  if (sortbyid){
+    cards.sort()
+  }
+  //Write HTML
   html=""
   for (i=0; i<cards.length; i++){
-    html+="<img src='"+fetch(tgt[0],cards[i])+"' width=25%>"
+    html+="<img src='"+fetch(tgt[0],cards[i])+"' width=20%>"
+    if (i%7==0 && i>0 && !sortbyid){
+      html+="<hr/>"
+    }
   }
   document.getElementById('booster').innerHTML=html
 
