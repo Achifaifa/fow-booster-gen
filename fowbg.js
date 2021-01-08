@@ -70,7 +70,7 @@ document.getElementById('generate').onclick = function() {
   html=""
   for (i=0; i<cards.length; i++){
     html+="<img src='"+fetch(tgt[0],cards[i])+"' width=20%>"
-    if (i%7==0 && i>0 && !sortbyid){
+    if ((i+1)%8==0 && i>0 && !sortbyid){
       html+="<hr/>"
     }
   }
