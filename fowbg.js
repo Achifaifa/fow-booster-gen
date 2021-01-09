@@ -1,17 +1,17 @@
 window.onload=function(){
 
 //Populate drop-down list
-list=document.getElementsByName('set')[0];
+list=document.getElementsByName('set')[0]
 for (i=0; i<data.length; i++){
   separator=document.createElement('option')
   separator.disabled=true
   separator.text=data[i].name
-  list.add(separator);
+  list.add(separator)
   for (j=0; j<data[i].sets.length; j++){
-    newset=document.createElement('option');
-    newset.text=data[i].sets[j].code+" - "+data[i].sets[j].name;
+    newset=document.createElement('option')
+    newset.text=data[i].sets[j].code+" - "+data[i].sets[j].name
     newset.value=i+"-"+j
-    list.add(newset);
+    list.add(newset)
   }
 }
 
@@ -34,8 +34,8 @@ function generate(tgtdata){
     for(j=0; j<6; j++){
       while(1==1){
         ncard=choice(tgtset.cards["N"])
-        //Filter alternate art cards (e.g. EDL-005*)
-        //Filter J-ruler cards (e.g. EDL-005J)
+        //Repick alternate art cards (e.g. EDL-005*)
+        //Repick J-ruler cards (e.g. EDL-005J)
         if (["*", "J"].indexOf(ncard[ncard.length-1])==-1){
           randcards.push(ncard)
           break
@@ -43,6 +43,7 @@ function generate(tgtdata){
       }
     }
     //1 rare/sr/mr 
+    //Repicks if alternate art (*), J-ruler (J) or normal ruler
     while(1==1){
       ncard=choice([].concat(tgtset.cards["R"], tgtset.cards["SR"], tgtset.cards["MR"]))
       if (["*", "J"].indexOf(ncard[ncard.length-1])==-1 && rulers.indexOf(ncard)==-1){
