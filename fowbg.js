@@ -73,6 +73,8 @@ function fetch(clusterid, code){
 document.getElementById('generate').onclick = function() {
   //Get info
   selectedset=document.getElementsByName('set')[0].value
+  //Set sort to default
+  sort=false
   //Limit packs to 10 to prevent excessive bandwidth use
   packs=Number(document.getElementsByName('packs')[0].value)
   if (packs>10){
@@ -85,16 +87,15 @@ document.getElementById('generate').onclick = function() {
     console.log((i+1)+"/"+packs)
     cards=cards.concat(generate(selectedset))
   }
-  //Sort cards if requested
-  sortbyid=document.getElementsByName("sortcheck")[0].checked
-  if (sortbyid){
-    cards.sort()
-  }
+  //Sort cards
+  sortedcards=cards.slice() 
+  sortedcards.sort()
+
   //Write HTML
   html=""
   for (i=0; i<cards.length; i++){
     html+="<img src='"+fetch(tgt[0],cards[i])+"' width='175px'>"
-    if ((i+1)%8==0 && i>0 && !sortbyid && i!=cards.length-1){
+    if ((i+1)%8==0 && i>0 && i!=cards.length-1){
       html+="<hr/>"
     }
   }
@@ -109,7 +110,34 @@ document.getElementById('generate').onclick = function() {
   }
 }
 
+//Sort button listener
+document.getElementById('sort').onclick = function() {
+  sort=!sort
+  //Write HTML
+  html=""
+  for (i=0; i<cards.length; i++){
+    if(sort){
+      html+="<img src='"+fetch(tgt[0],sortedcards[i])+"' width='175px'>"
+    }
+    else{
+      html+="<img src='"+fetch(tgt[0],cards[i])+"' width='175px'>"
+    }
+    if ((i+1)%8==0 && i>0 && !sort && i!=cards.length-1){
+      html+="<hr/>"
+    }
+  }
+  document.getElementById('booster').innerHTML=html
+  document.getElementById('msg').textContent="sorted by "
+  if(sort){
+    document.getElementById('msg').textContent+="ID"
+  }
+  else{
+    document.getElementById('msg').textContent+="pack order"
+  }
+}
+
 //Export button listener. Copies the list of all cards to the clipboard
+//to-do: Figure out how to copy card names instead so it's usable with untap
 document.getElementById('export').onclick = function() {
   txtcards=cards.join("\n")
   navigator.clipboard.writeText(txtcards)
@@ -117,4 +145,3 @@ document.getElementById('export').onclick = function() {
 }
 
 }
-
