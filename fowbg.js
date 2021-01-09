@@ -42,10 +42,10 @@ function generate(tgtdata){
         }
       }
     }
-    //1 rare/sr/mr (to-do: No ruler)
+    //1 rare/sr/mr 
     while(1==1){
       ncard=choice([].concat(tgtset.cards["R"], tgtset.cards["SR"], tgtset.cards["MR"]))
-      if (["*", "J"].indexOf(ncard[ncard.length-1])==-1){
+      if (["*", "J"].indexOf(ncard[ncard.length-1])==-1 && rulers.indexOf(ncard)==-1){
         randcards.push(ncard)
         break
       }
