@@ -1652,7 +1652,7 @@ names={
   "EDL-009": "Oborozuki, Star Sword Visionary",
   "EDL-009J": "Oborozuki, Star Sword Visionary [J-ruler]",
   "EDL-010": "Pilgrim of the Star",
-  "EDL-011": "Reya, Spawn of the Star",
+  "EDL-011": "Reiya, Spawn of the Star",
   "EDL-011*": "Twinkle of the Star",
   "EDL-012": "Silmeria, Summoner of Spirits",
   "EDL-012*": "Dance of Spirits",
