@@ -138,9 +138,16 @@ document.getElementById('sort').onclick = function() {
 }
 
 //Export button listener. Copies the list of all cards to the clipboard
-//to-do: Figure out how to copy card names instead so it's usable with untap
 document.getElementById('export').onclick = function() {
-  txtcards=cards.join("\n")
+  txtcards=""
+  uniquecards=[...new Set(cards)]
+  for (i=0; i<uniquecards.length; i++){
+    fcount=0
+    for (j=0; j<cards.length; j++){
+      if (uniquecards[i]==cards[j]){fcount++}
+    }
+    txtcards+=fcount+" "+names[uniquecards[i]]+"\n"
+  }
   navigator.clipboard.writeText(txtcards)
   document.getElementById('msg').textContent="Copied to clipboard"
 }
