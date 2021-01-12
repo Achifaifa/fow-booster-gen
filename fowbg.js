@@ -95,12 +95,13 @@ document.getElementById('generate').onclick = function() {
   //Write HTML
   html=""
   for (i=0; i<cards.length; i++){
-    html+="<img src='"+fetch(tgt[0],cards[i])+"' width='175px'>"
+    html+="<img src='"+fetch(tgt[0], cards[i])+"' class='thumbnail' width='175px'>"
     if ((i+1)%8==0 && i>0 && i!=cards.length-1){
       html+="<hr/>"
     }
   }
   document.getElementById('booster').innerHTML=html
+
   //Update message
   if (cards.length==0){
     document.getElementById('msg').textContent="Set not available"
@@ -109,6 +110,7 @@ document.getElementById('generate').onclick = function() {
     document.getElementById('msg').textContent="Generated "+packs+" pack"
     if (packs>1){document.getElementById('msg').textContent+="s"}
   }
+  addmaglisteners()
 }
 
 //Sort button listener
@@ -118,10 +120,10 @@ document.getElementById('sort').onclick = function() {
   html=""
   for (i=0; i<cards.length; i++){
     if(sort){
-      html+="<img src='"+fetch(tgt[0],sortedcards[i])+"' width='175px'>"
+      html+="<img src='"+fetch(tgt[0],sortedcards[i])+"' class='thumbnail' width='175px'>"
     }
     else{
-      html+="<img src='"+fetch(tgt[0],cards[i])+"' width='175px'>"
+      html+="<img src='"+fetch(tgt[0],cards[i])+"' class='thumbnail' width='175px'>"
     }
     if ((i+1)%8==0 && i>0 && !sort && i!=cards.length-1){
       html+="<hr/>"
@@ -135,6 +137,7 @@ document.getElementById('sort').onclick = function() {
   else{
     document.getElementById('msg').textContent+="pack order"
   }
+  addmaglisteners()
 }
 
 //Export button listener. Copies the list of all cards to the clipboard
@@ -150,6 +153,19 @@ document.getElementById('export').onclick = function() {
   }
   navigator.clipboard.writeText(txtcards)
   document.getElementById('msg').textContent="Copied to clipboard"
+}
+
+//Magnification event function
+function addmaglisteners(){
+  allimg=document.getElementsByClassName('thumbnail')
+  for (i=0; i<allimg.length; i++){
+    allimg[i].onclick=function (e){
+      newheader="<center><img src='"+e.srcElement.src.replace("thumb","card")+"'></center><br><hr/>"
+      document.getElementById('booster').innerHTML=newheader+html
+      addmaglisteners()
+      window.scrollTo(0,0);
+    }
+  }
 }
 
 }
