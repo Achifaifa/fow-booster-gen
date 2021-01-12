@@ -155,14 +155,19 @@ document.getElementById('export').onclick = function() {
   document.getElementById('msg').textContent="Copied to clipboard"
 }
 
-//Magnification event function
+//Magnification event
 function addmaglisteners(){
   allimg=document.getElementsByClassName('thumbnail')
   for (i=0; i<allimg.length; i++){
     allimg[i].onclick=function (e){
-      newheader="<center><img src='"+e.srcElement.src.replace("thumb","card")+"'></center><br><hr/>"
+      newheader="<center><img id='magnified' src='"+e.srcElement.src.replace("thumb","card")+"'></center><br><hr/>"
       document.getElementById('booster').innerHTML=newheader+html
       addmaglisteners()
+      //Listener to remove magnification
+      document.getElementById('magnified').onclick=function(){
+        document.getElementById('booster').innerHTML=html
+        addmaglisteners()
+      }
       window.scrollTo(0,0);
     }
   }
